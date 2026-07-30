@@ -212,30 +212,38 @@ h1, h2, h3, h4 {
 }
 
 /* =============================================
-   OWNER PHOTO CARD
+   ABOUT PHOTOS GRID (2 PHOTOS SHOWCASE)
    ============================================= */
+.about__photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 .owner-photo-card {
   position: relative;
-  border-radius: 0;
+  border-radius: 20px;
   overflow: hidden;
-  border-top: 2px solid rgba(212,160,23,0.3);
-  border-bottom: 2px solid rgba(212,160,23,0.3);
-  box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 80px rgba(212,160,23,0.08);
+  border: 2px solid rgba(212,160,23,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,160,23,0.06);
   cursor: none;
-  width: calc(100% + 80px);
-  margin-left: -40px;
-  margin-right: -40px;
+  width: 100%;
+  height: 420px;
 }
 
 .owner-photo {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 0.6s ease;
 }
 
 .owner-photo-card:hover .owner-photo {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 /* Bottom gradient overlay with name */
@@ -294,6 +302,7 @@ h1, h2, h3, h4 {
   border-radius: 999px;
   box-shadow: 0 4px 16px rgba(212,160,23,0.4);
   white-space: nowrap;
+  z-index: 2;
 }
 
 .owner-photo__badge span {
@@ -301,21 +310,28 @@ h1, h2, h3, h4 {
   font-weight: 800;
 }
 
+.owner-photo__badge--tech {
+  background: linear-gradient(135deg, #1a6330, #0c2e16);
+  border: 1px solid rgba(212,160,23,0.5);
+  color: #ffffff;
+}
+
 @media (max-width: 1024px) {
+  .about__photos-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
   .owner-photo-card {
-    width: calc(100% + 48px);
-    margin-left: -24px;
-    margin-right: -24px;
+    height: 380px;
+    border-radius: 16px;
   }
 }
 
 @media (max-width: 768px) {
   .owner-photo-card {
     cursor: pointer;
-    border-radius: 0;
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    margin-right: -20px;
+    height: 320px;
+    border-radius: 14px;
   }
   .owner-photo__name { font-size: 0.9rem; }
 }
