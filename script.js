@@ -361,4 +361,220 @@ linkStyle.textContent = `.nav__link.active { color: #fff !important; }
 .nav__link.active::after { transform: scaleX(1) !important; }`;
 document.head.appendChild(linkStyle);
 
+// =============================================
+//  ANIMATED ROAMING PLUMBER MASCOT LOGIC
+// =============================================
+(function initPlumberMascot() {
+  // Create Mascot Container
+  const mascot = document.createElement('div');
+  mascot.id = 'roamingPlumber';
+  mascot.className = 'roaming';
+  mascot.setAttribute('title', 'Click me!');
+
+  mascot.innerHTML = `
+    <div class="mascot-bubble" id="mascotBubble">On it! 🔧</div>
+    <div class="mascot-graphic" id="mascotGraphic">
+      <svg viewBox="0 0 100 120" width="100%" height="100%">
+        <!-- Hardhat / Cap -->
+        <path d="M 18,38 Q 50,12 82,38 Z" fill="#d4a017" stroke="#a67c0d" stroke-width="2"/>
+        <rect x="12" y="36" width="76" height="8" rx="4" fill="#f0c040"/>
+        <!-- Sun Emblem on Cap -->
+        <circle cx="50" cy="25" r="6" fill="#1a6330"/>
+        <circle cx="50" cy="25" r="3.5" fill="#d4a017"/>
+
+        <!-- Head -->
+        <circle cx="50" cy="50" r="19" fill="#ffdbac"/>
+        <!-- Ears -->
+        <circle cx="30" cy="50" r="4" fill="#ffdbac"/>
+        <circle cx="70" cy="50" r="4" fill="#ffdbac"/>
+        <!-- Eyes -->
+        <ellipse cx="42" cy="47" rx="2.5" ry="3.5" fill="#1a2b1e"/>
+        <ellipse cx="58" cy="47" rx="2.5" ry="3.5" fill="#1a2b1e"/>
+        <circle cx="43" cy="46" r="1" fill="#ffffff"/>
+        <circle cx="59" cy="46" r="1" fill="#ffffff"/>
+        <!-- Cheeks -->
+        <circle cx="37" cy="53" r="3.5" fill="#ffb6c1" opacity="0.65"/>
+        <circle cx="63" cy="53" r="3.5" fill="#ffb6c1" opacity="0.65"/>
+        <!-- Friendly Moustache & Smile -->
+        <path d="M 38,55 Q 50,60 62,55 Q 50,64 38,55" fill="#4a2c11"/>
+        <path d="M 43,62 Q 50,67 57,62" fill="none" stroke="#4a2c11" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- Body & Overalls -->
+        <rect x="32" y="66" width="36" height="26" rx="6" fill="#1a6330"/>
+        <!-- Straps -->
+        <line x1="37" y1="66" x2="41" y2="92" stroke="#0c2e16" stroke-width="4.5"/>
+        <line x1="63" y1="66" x2="59" y2="92" stroke="#0c2e16" stroke-width="4.5"/>
+        <!-- Gold Buttons -->
+        <circle cx="39" cy="74" r="2.5" fill="#d4a017"/>
+        <circle cx="61" cy="74" r="2.5" fill="#d4a017"/>
+
+        <!-- Left Arm -->
+        <path d="M 32,70 Q 18,78 24,88" fill="none" stroke="#1a6330" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="24" cy="88" r="4.5" fill="#ffdbac"/>
+
+        <!-- Right Arm with Wrench -->
+        <g class="mascot-wrench">
+          <path d="M 68,70 Q 82,76 78,86" fill="none" stroke="#1a6330" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="78" cy="86" r="4.5" fill="#ffdbac"/>
+          <path d="M 78,86 L 90,72" stroke="#c0c0c0" stroke-width="4.5" stroke-linecap="round"/>
+          <path d="M 87,68 L 95,75 L 90,80 L 82,73 Z" fill="#e0e0e0" stroke="#808080" stroke-width="1.5"/>
+        </g>
+
+        <!-- Legs & Boots -->
+        <g class="mascot-legs">
+          <rect x="35" y="90" width="11" height="18" rx="4" fill="#0c2e16"/>
+          <rect x="54" y="90" width="11" height="18" rx="4" fill="#0c2e16"/>
+          <rect x="30" y="104" width="17" height="11" rx="4" fill="#4a2c11"/>
+          <rect x="53" y="104" width="17" height="11" rx="4" fill="#4a2c11"/>
+        </g>
+      </svg>
+    </div>
+  `;
+
+  document.body.appendChild(mascot);
+
+  const graphic = document.getElementById('mascotGraphic');
+  const bubble = document.getElementById('mascotBubble');
+
+  let isSitting = false;
+  let roamTimer = null;
+  let currentX = 60;
+  let currentY = 120;
+
+  const sitPhrases = [
+    "On it! 🔧",
+    "Sitting on the job! 💧",
+    "Right away! 🚰",
+    "Quail Springs Plumbing! ⭐",
+    "24/7 Emergency Ready! 🚨",
+    "Call (405) 900-3380! 📞",
+    "Pipes fixed fast! 🛠️",
+    "10,000+ Services Done! 🏆"
+  ];
+
+  function showBubble(text) {
+    bubble.textContent = text;
+    bubble.classList.add('show');
+    setTimeout(() => {
+      bubble.classList.remove('show');
+    }, 3800);
+  }
+
+  function setMascotPos(x, y, isWalking = false) {
+    if (x > currentX) {
+      graphic.classList.remove('facing-left');
+    } else if (x < currentX) {
+      graphic.classList.add('facing-left');
+    }
+
+    currentX = x;
+    currentY = y;
+    mascot.style.left = `${x}px`;
+    mascot.style.top  = `${y}px`;
+
+    if (isWalking) {
+      mascot.classList.remove('roaming', 'sitting');
+      mascot.classList.add('walking');
+    }
+  }
+
+  function roamToRandomSpot() {
+    if (isSitting) return;
+
+    const viewportW = window.innerWidth;
+    const viewportH = window.innerHeight;
+    const scrollY   = window.scrollY;
+
+    const mascotW = 70;
+    const mascotH = 90;
+
+    // Pick a spot in current view area
+    const newX = Math.max(20, Math.min(viewportW - mascotW - 20, Math.random() * (viewportW - mascotW)));
+    const newY = Math.max(scrollY + 100, Math.min(scrollY + viewportH - mascotH - 60, scrollY + Math.random() * (viewportH - 200)));
+
+    setMascotPos(newX, newY, true);
+
+    setTimeout(() => {
+      if (!isSitting) {
+        mascot.classList.remove('walking');
+        mascot.classList.add('roaming');
+      }
+    }, 850);
+  }
+
+  function startRoamingLoop() {
+    if (roamTimer) clearInterval(roamTimer);
+    roamTimer = setInterval(() => {
+      if (!isSitting && Math.random() > 0.3) {
+        roamToRandomSpot();
+      }
+    }, 5500);
+  }
+
+  // Sit on top of clicked element
+  function sitOnElement(el) {
+    isSitting = true;
+    const rect = el.getBoundingClientRect();
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+
+    const mascotW = isMobile ? 52 : 68;
+    const mascotH = isMobile ? 65 : 85;
+
+    // Position centered right on top edge of element
+    const targetX = Math.max(10, Math.min(window.innerWidth - mascotW - 10, rect.left + scrollX + (rect.width / 2) - (mascotW / 2)));
+    const targetY = rect.top + scrollY - mascotH + 12;
+
+    setMascotPos(targetX, targetY, true);
+
+    setTimeout(() => {
+      mascot.classList.remove('walking', 'roaming');
+      mascot.classList.add('sitting');
+
+      const phrase = sitPhrases[Math.floor(Math.random() * sitPhrases.length)];
+      showBubble(phrase);
+    }, 800);
+
+    // Stand back up after 9 seconds if undisturbed
+    setTimeout(() => {
+      if (isSitting) {
+        isSitting = false;
+        mascot.classList.remove('sitting');
+        mascot.classList.add('roaming');
+        roamToRandomSpot();
+      }
+    }, 9500);
+  }
+
+  // Bind click listeners to all buttons, links, and cards
+  document.querySelectorAll('a, button, .btn, .service-card, .contact-card, .review-card, .owner-photo-card').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // Don't override default link behavior, just sit!
+      sitOnElement(el);
+    });
+  });
+
+  // Click mascot directly for a fun jump & spin!
+  mascot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mascot.style.transition = 'transform 0.4s ease, top 0.8s ease, left 0.8s ease';
+    mascot.style.transform = 'scale(1.2) translateY(-30px) rotate(360deg)';
+    showBubble("Quail Springs Plumbing at your service! 🚰");
+
+    setTimeout(() => {
+      mascot.style.transform = '';
+      mascot.style.transition = '';
+    }, 600);
+  });
+
+  // Initial placement & start roaming
+  setTimeout(() => {
+    setMascotPos(window.innerWidth - 120, window.scrollY + 160);
+    startRoamingLoop();
+    showBubble("Hi! I'm your QSP Plumber! 🔧");
+  }, 1000);
+
+})();
+
 console.log('Quailspring Plumbing 3D site loaded ✓');
+
