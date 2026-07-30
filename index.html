@@ -12,32 +12,24 @@
 </head>
 <body>
 
+  <!-- 3D Canvas Background -->
+  <canvas id="bg3d"></canvas>
+
   <!-- ===== HEADER / NAV ===== -->
   <header class="header" id="header">
     <nav class="nav container">
       <div class="nav__logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="20" fill="url(#logoGrad)"/>
-            <path d="M12 28 Q12 20 20 20 Q28 20 28 12" stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <circle cx="28" cy="12" r="3" fill="white"/>
-            <path d="M12 28 L10 32 L14 32 Z" fill="white"/>
-            <defs>
-              <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40">
-                <stop offset="0%" stop-color="#1e6fb5"/>
-                <stop offset="100%" stop-color="#0d4a8a"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <span class="logo-text">Quailspring<span class="logo-accent"> Plumbing</span></span>
+        <a href="#home" style="display:flex;align-items:center;">
+          <img src="logo.png" alt="Quail Springs Plumbing Logo" class="site-logo" />
+        </a>
       </div>
       <ul class="nav__links" id="navLinks">
         <li><a href="#about" class="nav__link">About</a></li>
         <li><a href="#services" class="nav__link">Services</a></li>
+        <li><a href="#reviews" class="nav__link">Reviews</a></li>
         <li><a href="#contact" class="nav__link">Contact</a></li>
       </ul>
-      <a href="tel:+15551234567" class="btn btn--nav" id="headerCta">📞 Call Now</a>
+      <a href="tel:+14059003380" class="btn btn--nav" id="headerCta">📞 Call Now</a>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
@@ -46,45 +38,48 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="home">
-    <div class="hero__bg">
-      <div class="hero__orb hero__orb--1"></div>
-      <div class="hero__orb hero__orb--2"></div>
-      <div class="hero__grid"></div>
+    <!-- Banner background image with watermark overlay -->
+    <div class="hero__banner-bg">
+      <img src="banner.jpg" alt="Quail Springs Plumbing" class="hero__banner-img" />
+      <div class="hero__banner-overlay"></div>
+      <!-- Logo watermark -->
+      <div class="hero__watermark">
+        <img src="icon.jpg" alt="" class="hero__watermark-img" />
+      </div>
     </div>
-    <div class="container hero__content">
-      <div class="hero__badge">
-        <span class="badge-dot"></span> Serving the Community Since 2005
+    <div class="hero__inner" id="heroInner">
+      <div class="hero__depth-layer" data-depth="0.1" id="depthLayer1">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
       </div>
-      <h1 class="hero__title">
-        Expert Plumbing,<br/>
-        <span class="gradient-text">Done Right.</span>
-      </h1>
-      <p class="hero__desc">
-        Quailspring Plumbing delivers reliable, fast, and affordable plumbing solutions for homes and businesses. From leaky faucets to full installations — we've got you covered 24/7.
-      </p>
-      <div class="hero__actions">
-        <a href="tel:+15551234567" class="btn btn--primary" id="heroCta">Get a Free Quote</a>
-        <a href="#services" class="btn btn--ghost">Our Services →</a>
-      </div>
-      <div class="hero__stats">
-        <div class="stat">
-          <span class="stat__num">20+</span>
-          <span class="stat__label">Years Experience</span>
+      <div class="container hero__content" data-depth="0.3" id="heroContent">
+        <h1 class="hero__title">
+          Expert Plumbing,<br/>
+          <span class="gradient-text">Done Right.</span>
+        </h1>
+        <p class="hero__desc">
+          Quailspring Plumbing delivers reliable, fast, and affordable plumbing solutions for homes and businesses. From leaky faucets to full installations — we've got you covered 24/7.
+        </p>
+        <div class="hero__actions">
+          <a href="tel:+14059003380" class="btn btn--primary" id="heroCta">Get a Free Quote</a>
+          <a href="#services" class="btn btn--ghost">Our Services →</a>
         </div>
-        <div class="stat__divider"></div>
-        <div class="stat">
-          <span class="stat__num">5,000+</span>
-          <span class="stat__label">Jobs Completed</span>
-        </div>
-        <div class="stat__divider"></div>
-        <div class="stat">
-          <span class="stat__num">24/7</span>
-          <span class="stat__label">Emergency Service</span>
+        <div class="hero__stats">
+          <div class="stat">
+            <span class="stat__num">10,000+</span>
+            <span class="stat__label">Services Done</span>
+          </div>
+          <div class="stat__divider"></div>
+          <div class="stat">
+            <span class="stat__num">24/7</span>
+            <span class="stat__label">Emergency Service</span>
+          </div>
         </div>
       </div>
     </div>
     <div class="hero__scroll-cue">
-      <div class="scroll-dot"></div>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
@@ -92,28 +87,29 @@
   <section class="about section" id="about">
     <div class="container about__grid">
       <div class="about__visual">
-        <div class="about__card-wrapper">
-          <div class="about__blob"></div>
-          <div class="about__icon-card">
-            <div class="big-icon">🔧</div>
-            <div class="icon-ring icon-ring--1"></div>
-            <div class="icon-ring icon-ring--2"></div>
+        <div class="owner-photo-card tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="500" data-tilt-glare="true" data-tilt-max-glare="0.2">
+          <img src="owner.jpg" alt="Quail Springs Plumbing Owner" class="owner-photo" />
+          <div class="owner-photo__overlay">
+            <div class="owner-photo__info">
+              <div class="owner-photo__watermark">
+                <img src="icon.jpg" alt="" class="owner-watermark-icon" />
+              </div>
+              <div class="owner-photo__text">
+                <span class="owner-photo__name">Quail Springs Plumbing</span>
+                <span class="owner-photo__title">Owner & CEO · Oklahoma City, OK</span>
+              </div>
+            </div>
           </div>
-          <div class="about__badge-card">
-            <span class="check-icon">✓</span>
-            <span>Licensed & Insured</span>
-          </div>
-          <div class="about__badge-card about__badge-card--2">
-            <span class="check-icon">✓</span>
-            <span>Satisfaction Guaranteed</span>
+          <div class="owner-photo__badge">
+            <span>10,000+</span> Successful Jobs
           </div>
         </div>
       </div>
-      <div class="about__text">
+      <div class="about__text reveal-3d">
         <span class="section-label">Who We Are</span>
         <h2 class="section-title">Your Trusted<br/>Neighborhood Plumbers</h2>
         <p class="about__desc">
-          Founded right here in the community, Quailspring Plumbing has been the name neighbors trust for quality plumbing work. We're a family-owned, locally-operated business with a team of certified, friendly professionals who treat every job — big or small — with the same level of care and attention.
+          Founded right here in Oklahoma City, Quailspring Plumbing has been the name neighbors trust for quality plumbing work. We're a family-owned, locally-operated business with a team of certified, friendly professionals who treat every job — big or small — with the same level of care and attention.
         </p>
         <p class="about__desc">
           We believe in transparent pricing, honest assessments, and workmanship that lasts. No hidden fees. No upselling. Just great plumbing.
@@ -131,56 +127,104 @@
   <!-- ===== SERVICES ===== -->
   <section class="services section" id="services">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal-3d">
         <span class="section-label">What We Do</span>
         <h2 class="section-title">Full-Service Plumbing<br/>Solutions</h2>
         <p class="section-sub">From routine maintenance to emergency repairs, we handle it all with expertise and care.</p>
       </div>
       <div class="services__grid">
 
-        <div class="service-card" id="service-general">
+        <div class="service-card tilt-card" id="service-general" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__icon">🔩</div>
           <h3 class="service-card__title">General Repairs</h3>
           <p class="service-card__desc">Leaky faucets, running toilets, broken pipes — we diagnose and fix all common plumbing issues quickly and affordably.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
-        <div class="service-card service-card--featured" id="service-emergency">
+        <div class="service-card service-card--featured tilt-card" id="service-emergency" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__badge">24/7</div>
           <div class="service-card__icon">🚨</div>
           <h3 class="service-card__title">Emergency Plumbing</h3>
           <p class="service-card__desc">Plumbing disasters don't keep business hours. Our emergency team is on call around the clock to handle urgent situations fast.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
-        <div class="service-card" id="service-drain">
+        <div class="service-card tilt-card" id="service-drain" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__icon">🌀</div>
           <h3 class="service-card__title">Drain Cleaning</h3>
           <p class="service-card__desc">Slow or clogged drains? We use advanced tools to clear blockages and keep your pipes flowing freely.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
-        <div class="service-card" id="service-leak">
+        <div class="service-card tilt-card" id="service-leak" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__icon">🔍</div>
           <h3 class="service-card__title">Leak Detection</h3>
           <p class="service-card__desc">Hidden leaks can cause serious damage. We use modern detection technology to find and fix leaks before they become costly problems.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
-        <div class="service-card" id="service-residential">
+        <div class="service-card tilt-card" id="service-residential" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__icon">🏠</div>
           <h3 class="service-card__title">Residential Plumbing</h3>
           <p class="service-card__desc">Complete plumbing services for homeowners — installations, renovations, water heaters, and full system inspections.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
-        <div class="service-card" id="service-commercial">
+        <div class="service-card tilt-card" id="service-commercial" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
           <div class="service-card__icon">🏢</div>
           <h3 class="service-card__title">Commercial Plumbing</h3>
           <p class="service-card__desc">We serve businesses of all sizes with reliable commercial plumbing — minimizing downtime and keeping your operations running smoothly.</p>
-          <div class="service-card__glow"></div>
+          <div class="card__shine"></div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="reviews section" id="reviews">
+    <div class="container">
+      <div class="section-header reveal-3d">
+        <span class="section-label">What Customers Say</span>
+        <h2 class="section-title">Real Reviews from<br/>Real Neighbors</h2>
+        <p class="section-sub">Don't just take our word for it — hear from the Oklahoma City community.</p>
+      </div>
+      <div class="reviews__grid">
+        <!-- Review card image -->
+        <div class="review-img-card tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+          <img src="review.jpg" alt="Customer review - Micah Moddrell 5 stars" class="review-img" />
+          <div class="review-img__watermark">
+            <img src="icon.jpg" alt="" class="watermark-icon" />
+          </div>
+        </div>
+        <!-- Text reviews -->
+        <div class="reviews__text-col">
+          <div class="review-card tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"QSP has been a <strong>true blessing</strong> to me and my family. Super thankful for their quick, intentional, and inspirational service! Very knowledgeable plumber and reasonably priced services."</p>
+            <div class="review-card__author">
+              <div class="review-card__avatar">MM</div>
+              <div>
+                <div class="review-card__name">Micah Moddrell</div>
+                <div class="review-card__source">Google Review</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card tilt-card" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="review-card__stars">★★★★★</div>
+            <p class="review-card__text">"Fast response, fair pricing, and they left everything cleaner than they found it. Quail Springs Plumbing is the only plumber I'll ever call!"</p>
+            <div class="review-card__author">
+              <div class="review-card__avatar">OC</div>
+              <div>
+                <div class="review-card__name">Oklahoma City Local</div>
+                <div class="review-card__source">Google Review</div>
+              </div>
+            </div>
+          </div>
+          <div class="reviews__cta">
+            <a href="tel:+14059003380" class="btn btn--primary">📞 Call (405) 900-3380</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -188,38 +232,38 @@
   <!-- ===== CONTACT ===== -->
   <section class="contact section" id="contact">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal-3d">
         <span class="section-label">Get In Touch</span>
         <h2 class="section-title">Contact Quailspring<br/>Plumbing</h2>
         <p class="section-sub">Ready to solve your plumbing problem? Reach out — we respond fast.</p>
       </div>
       <div class="contact__grid">
 
-        <div class="contact-card" id="contact-phone">
+        <div class="contact-card tilt-card" id="contact-phone" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.25">
           <div class="contact-card__icon">📞</div>
           <h3 class="contact-card__title">Phone</h3>
           <p class="contact-card__sub">Call us anytime — 24/7</p>
-          <a href="tel:+15551234567" class="contact-card__link">(555) 123-4567</a>
+          <a href="tel:+14059003380" class="contact-card__link">(405) 900-3380</a>
         </div>
 
-        <div class="contact-card contact-card--accent" id="contact-email">
+        <div class="contact-card contact-card--accent tilt-card" id="contact-email" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.25">
           <div class="contact-card__icon">✉️</div>
           <h3 class="contact-card__title">Email</h3>
           <p class="contact-card__sub">We'll respond within a few hours</p>
-          <a href="mailto:info@quailspringplumbing.com" class="contact-card__link">info@quailspringplumbing.com</a>
+          <a href="mailto:Quailspringsplumbing@gmail.com" class="contact-card__link">Quailspringsplumbing@gmail.com</a>
         </div>
 
-        <div class="contact-card" id="contact-address">
+        <div class="contact-card tilt-card" id="contact-address" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.25">
           <div class="contact-card__icon">📍</div>
           <h3 class="contact-card__title">Address</h3>
           <p class="contact-card__sub">Visit our local office</p>
           <address class="contact-card__link">
-            123 Quailspring Lane<br/>
-            Springfield, TX 78701
+            3013 N Roff Ave<br/>
+            Oklahoma City, OK
           </address>
         </div>
 
-        <div class="contact-card" id="contact-hours">
+        <div class="contact-card tilt-card" id="contact-hours" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.25">
           <div class="contact-card__icon">🕐</div>
           <h3 class="contact-card__title">Hours</h3>
           <p class="contact-card__sub">Emergency line always open</p>
@@ -233,12 +277,12 @@
       </div>
 
       <!-- CTA Banner -->
-      <div class="cta-banner">
+      <div class="cta-banner reveal-3d">
         <div class="cta-banner__text">
           <h3>Need help right now?</h3>
           <p>Our emergency team is available around the clock.</p>
         </div>
-        <a href="tel:+15551234567" class="btn btn--primary btn--lg" id="ctaBannerBtn">📞 Call (555) 123-4567</a>
+        <a href="tel:+14059003380" class="btn btn--primary btn--lg" id="ctaBannerBtn">📞 Call (405) 900-3380</a>
       </div>
     </div>
   </section>
@@ -247,23 +291,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <div class="nav__logo">
-          <div class="logo-icon logo-icon--sm">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="20" fill="url(#logoGrad2)"/>
-              <path d="M12 28 Q12 20 20 20 Q28 20 28 12" stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
-              <circle cx="28" cy="12" r="3" fill="white"/>
-              <path d="M12 28 L10 32 L14 32 Z" fill="white"/>
-              <defs>
-                <linearGradient id="logoGrad2" x1="0" y1="0" x2="40" y2="40">
-                  <stop offset="0%" stop-color="#1e6fb5"/>
-                  <stop offset="100%" stop-color="#0d4a8a"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <span class="logo-text">Quailspring<span class="logo-accent"> Plumbing</span></span>
-        </div>
+        <img src="logo.png" alt="Quail Springs Plumbing Logo" class="site-logo site-logo--footer" />
         <p class="footer__tagline">Trusted plumbing services — done right the first time.</p>
       </div>
       <div class="footer__links">
@@ -276,16 +304,20 @@
       </div>
       <div class="footer__contact">
         <h4>Contact</h4>
-        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
-        <p><a href="mailto:info@quailspringplumbing.com">info@quailspringplumbing.com</a></p>
-        <p>123 Quailspring Lane<br/>Springfield, TX 78701</p>
+        <p><a href="tel:+14059003380">(405) 900-3380</a></p>
+        <p><a href="mailto:Quailspringsplumbing@gmail.com">Quailspringsplumbing@gmail.com</a></p>
+        <p>3013 N Roff Ave<br/>Oklahoma City, OK</p>
       </div>
     </div>
     <div class="footer__bottom">
-      <p>© 2025 Quailspring Plumbing. All rights reserved. | Licensed & Insured</p>
+      <p>© 2025 Quailspring Plumbing. All rights reserved. | Licensed &amp; Insured</p>
     </div>
   </footer>
 
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- VanillaTilt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
